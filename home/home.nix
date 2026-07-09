@@ -56,14 +56,14 @@ in
         background = "1a1a1a";
         foreground = "e0e0e0";
 
-        regular0 = "000000"; # black
-        regular1 = "4d4d4d"; # (was red)
-        regular2 = "666666"; # (was green)
-        regular3 = "808080"; # (was yellow)
-        regular4 = "999999"; # (was blue)
-        regular5 = "b3b3b3"; # (was magenta)
-        regular6 = "cccccc"; # (was cyan)
-        regular7 = "e6e6e6"; # white
+        regular0 = "000000";
+        regular1 = "4d4d4d";
+        regular2 = "666666";
+        regular3 = "808080";
+        regular4 = "999999";
+        regular5 = "b3b3b3";
+        regular6 = "cccccc";
+        regular7 = "e6e6e6";
 
         bright0 = "333333";
         bright1 = "595959";
@@ -193,6 +193,19 @@ in
       riverctl map normal Super+Shift J swap next
       riverctl map normal Super+Shift K swap previous
 
+      # Tiling layout counts / ratio (rivertile-specific)
+      riverctl map normal Super H send-layout-cmd rivertile "main-ratio -0.05"
+      riverctl map normal Super L send-layout-cmd rivertile "main-ratio +0.05"
+      riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
+      riverctl map normal Super+Shift L send-layout-cmd rivertile "main-count -1"
+
+      # Toggle floating on the focused view
+      riverctl map normal Super+Shift Space toggle-float
+
+      # Mouse-based move/resize for floating windows
+      riverctl map-pointer normal Super BTN_LEFT move-view
+      riverctl map-pointer normal Super BTN_RIGHT resize-view
+
       # Tags (workspaces), 1-9
       for i in $(seq 1 9); do
         tagmask=$((1 << (i - 1)))
@@ -204,6 +217,11 @@ in
       riverctl border-color-focused 0xffffff
       riverctl border-color-unfocused 0x4d4d4d
       riverctl border-width 2
+
+      # Default layout generator — without this, every window floats
+      # ungrouped in the center of the screen instead of tiling.
+      riverctl default-layout rivertile
+      rivertile -view-padding 6 -outer-padding 6 &
 
       swaybg -c "#1a1a1a" &
       mako &
