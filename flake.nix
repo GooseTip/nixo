@@ -1,5 +1,5 @@
 {
-  description = "auhhhhhhhhhhhhhhhhhhhhhg";
+  description = "Bare-metal NixOS — River + foot + minimalist grayscale rice";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -39,7 +39,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs zen-browser; };
-            home-manager.users.tard = import ./home/home.nix;
+            home-manager.users.goose = import ./home/home.nix;
           }
         ];
       };
